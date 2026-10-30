@@ -1,0 +1,35 @@
+﻿ID,Scenario,Preconditions,Steps,Expected Result,Type,Automation
+TS_01,Login with valid username and password,User registered hai,"1. Open the Login page
+2. Enter a valid username
+3. Enter a valid password
+4. Click the Log In button",User is successfully logged in and redirected to the Accounts Overview page,Positive,Yes
+TS_02,Login with invalid username,User is registered,"1. Open the Login page
+2. Enter an invalid username
+3. Enter a valid password
+4. Click the Log In button",An error message is displayed and login is unsuccessful,Negative,Yes
+TS_03,Login with invalid password,User is registered,"1. Open the Login page
+2. Enter a valid username
+3. Enter an invalid password
+4. Click the Log In button",An error message is displayed and login is unsuccessful,Negative,Yes
+TS_04,Login with invalid username and invalid password,User is registered,"1. Open the Login page
+2. Enter a valid username
+3. Enter an invalid password
+4. Click the Log In button",An error message is displayed and login is unsuccessful,Negative,Yes
+TS_05,Login with blank username,Login page is available,"1. Leave the username field blank
+2. Enter a valid password
+3. Click the Log In button",Login is unsuccessful and an appropriate validation/error message is displayed,Negative,Yes
+TS_06,Login with blank password,Login page is available,"1. Leave the username field blank
+2. Enter a valid password
+3. Click the Log In button",Login is unsuccessful and an appropriate validation/error message is displayed,Negative,Yes
+TS_07,Login with blank username and password,Login page is available,"1. Leave the username field blank
+2. Enter a valid password
+3. Click the Log In button",Login is unsuccessful and an appropriate validation/error message is displayed,Negative,Yes
+TS_08,Verify Accounts Overview page after successful login,User is logged in,1. Perform a successful login,Accounts Overview page is displayed successfully,Positive,Yes
+TS_09,Verify user session after browser refresh,User is logged in,"1. Log in successfully
+2. Refresh the browser",User session remains active and the application remains accessible,Positive,Yes
+TS_11,Verify access to protected pages after logout,User is logged in,"1. Log in successfully
+2. Click Logout
+3. Try to access the Accounts Overview page URL",User is redirected to the Login page and cannot access protected pages,Positive,Yes
+TS_10,Verify Remember Me functionality,User is registered,"1. Select Remember Me
+2. Login successfully
+3. Close and reopen browser ",User credentials/session are remembered as per application design,Positive,Yes
