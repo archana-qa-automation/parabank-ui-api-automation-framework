@@ -1,48 +1,50 @@
-package src.test.java.com.archana.parabank.pages;
+package com.archana.parabank.pages;
 
+import java.time.Duration;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import SeleniumPratice.SeleniumPratice.utils.WaitUtils;
-import SeleniumPratice.SeleniumPratice.utils.JavaScriptUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
-    WebDriver driver;
-
-    @FindBy(id = "username")
-    WebElement username;
-
-    @FindBy(id = "password")
-    WebElement password;
-
-    @FindBy(css = "button[type='submit']")
-    WebElement loginButton;
+    private final By usernameField = By.name("username");
+    private final By passwordField = By.name("password");
+    private final By loginButton = By.cssSelector("input[value='Log In']");
+    private final By pageTitle = By.cssSelector("h1.title");
+    private final By logoutLink = By.linkText("Log Out");
+    private final By errorMessage = By.xpath("//*[contains(text(),'could not be verified')]");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver, this);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
- // Practicing Git change tracking
- // Feature branch practice
-    public void login(String user, String pass) {
+    public void login(String username, String password) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField)).clear();
+        driver.findElement(usernameField).sendKeys(username);
+        driver.findElement(passwordField).clear();
+        driver.findElement(passwordField).sendKeys(password);
+        driver.findElement(loginButton).click();
+    }
 
-        System.out.println("Entering username...");
-        username.sendKeys(user);
+    public String getPageTitle() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(pageTitle)).getText();
+    }
 
-        System.out.println("Entering password...");
-        password.sendKeys(pass);
+    public boolean isLogoutDisplayed() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(logoutLink)).isDisplayed();
+    }
 
-        System.out.println("Scrolling to login button...");
-        JavaScriptUtils.scrollToElement(driver, loginButton);
-
-        System.out.println("Clicking login button...");
-        WaitUtils.clickWhenReady(driver, loginButton);
-
-        System.out.println("Login button clicked.");
+    public void refreshPage() {
+        driver.navigate().refresh();
+        
+    }
+    public String getErrorMessage() {
+    	return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText().trim();
+    
     }
 }
